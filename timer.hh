@@ -11,10 +11,10 @@
 // How to use:
 //
 //    // do slow initialization before creating a Timer
-//    Timer timer;
+//    i.e. Timer timer;
 //    // timer is now running, immediately run the code you want timed
-//    double elapsed = timer.elapsed();
-//    cout << "Elapsed time in seconds: " << elapsed << endl;
+//    i.e. double elapsed = timer.elapsed();
+//         cout << "Elapsed time in seconds: " << elapsed << endl;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -48,6 +48,6 @@ public:
     return time_span.count();
   }
 
- private:
+private:
   std::chrono::high_resolution_clock::time_point _start;
 };
