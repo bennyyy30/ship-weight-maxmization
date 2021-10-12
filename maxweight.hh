@@ -202,8 +202,33 @@ std::unique_ptr<CargoVector> greedy_max_weight (
   const CargoVector& goods,
   double total_volume) {
   
-  // TODO: implement this function, then delete the return statement below
-  return nullptr;
+    std::unique_ptr<CargoVector>before(new CargoVector(goods));
+    std::unique_ptr<CargoVector>after(new CargoVector);
+
+    double result_vol = 0;
+    size_t v;
+    size_t token = 0;
+
+    while (!before->empty()) {
+      double max_wpv = 0;
+
+      for (size_t i = 0; i < before->size(); i++) {
+        if (before->at(i)->weight() / before->at(i)->volume() > max_wpv) {
+          token = i;
+          max_wpv = before->at(i)->weight() / before->at(i)->volume();
+        }
+      }
+
+      v = before->at(token)->volume();
+      if ((result_vol + v) <= total_volume) {
+        after->push_back(before->at(token));
+        result_vol += v;
+      }
+
+      before->erase(before->begin() + token);
+    }
+
+  return after;
 }
 
 // Compute the optimal set of cargo items with a exhaustive search algorithm.
