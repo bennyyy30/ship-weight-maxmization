@@ -40,7 +40,7 @@ int main() {
         TEST_EQUAL("total_size", 3, three->size());
         TEST_EQUAL("total_size", 10, ten->size());
         TEST_EQUAL("contents", "enriched yellow soybean", (*ten)[0]->description());
-        TEST_EQUAL("contents", "Idaho wheat", (*ten)[9]->description());
+        TEST_EQUAL("contents", "Idaho barley", (*ten)[9]->description());
         for (int i = 0; i < 3; i++) {
           TEST_EQUAL("contents", (*three)[i]->description(), (*ten)[i]->description());
         }
