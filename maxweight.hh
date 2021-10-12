@@ -179,10 +179,18 @@ std::unique_ptr<CargoVector> filter_cargo_vector (
   const CargoVector& source,
   double min_weight,
   double max_weight,
-  int total_size) {
-  
-  // TODO: implement this function, then delete the return statement below
-  return nullptr;
+  int total_size) {  
+    std::unique_ptr<CargoVector>filteredVec(new CargoVector);
+
+    for (size_t i = 0; i < source.size(); i++) {
+      double cargoVec = filteredVec->size();
+      if (cargoVec < total_size && cargoVec >= 0) {
+        if (source[i]->weight() >= min_weight && source[i]->weight() <= max_weight) {
+          filteredVec->push_back(source[i]);
+        }
+      }
+    }
+    return filteredVec;
 }
 
 // Compute the optimal set of cargo items with a greedy algorithm.
