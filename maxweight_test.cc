@@ -143,8 +143,8 @@ int main() {
         2400,	2400,       2400,   2400,   2400
       };
 	
-      for (int optimal_index = 0; optimal_index < optimal_weight_totals.size(); optimal_index++) {
-        int n = optimal_index + 1;
+      for (size_t optimal_index = 0; optimal_index < optimal_weight_totals.size(); optimal_index++) {
+        size_t n = optimal_index + 1;
         double expected_weight = optimal_weight_totals[optimal_index];
 		
         auto small_cargo = filter_cargo_vector(*filtered_cargo, 1, 2000, n);
