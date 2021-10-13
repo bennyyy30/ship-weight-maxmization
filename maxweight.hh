@@ -239,6 +239,22 @@ std::unique_ptr<CargoVector> exhaustive_max_weight (
   const CargoVector& goods,
   double total_volume) {
   
-  // TODO: implement this function, then delete the return statement below
-  return nullptr;
+  // std::unique_ptr<CargoVector> todo(new CargoVector(goods));
+  std::unique_ptr<CargoVector> best (new CargoVector);
+
+  // Calculating the value of 2^n
+  int n = goods.size();
+  uint64_t subsets = pow(2, n);
+
+  for (uint64_t i = 0; i < subsets; ++i)
+  {
+    std::unique_ptr<CargoVector> candidate (new CargoVector);
+    for (int j = 0; j < n; ++j)
+    {
+      // Do some bitwise operations: https://www.youtube.com/watch?v=hlvAojWf-eU
+    }
+  }
+
+
+  return best;
 }
