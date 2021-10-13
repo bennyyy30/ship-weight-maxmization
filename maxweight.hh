@@ -239,8 +239,8 @@ std::unique_ptr<CargoVector> exhaustive_max_weight (
   const CargoVector& goods,
   double total_volume) {
   
-  // std::unique_ptr<CargoVector> todo(new CargoVector(goods));
   std::unique_ptr<CargoVector> best (new CargoVector);
+  double best_weight = 0;
 
   // Calculating the value of 2^n
   int n = goods.size();
@@ -249,12 +249,32 @@ std::unique_ptr<CargoVector> exhaustive_max_weight (
   for (uint64_t i = 0; i < subsets; ++i)
   {
     std::unique_ptr<CargoVector> candidate (new CargoVector);
+    double candidate_volume = 0;
+    double candidate_weight = 0;
+
     for (int j = 0; j < n; ++j)
     {
       // Do some bitwise operations: https://www.youtube.com/watch?v=hlvAojWf-eU
+      if (((i >> j) & 1) == 1)
+      {
+        candidate->push_back(goods[j]);
+        candidate_volume += goods[j]->volume();
+        candidate_weight += goods[j]->weight();
+      }
+    }
+
+    if (candidate_volume <= total_volume)
+    {
+      if (best->empty() || candidate_weight > best_weight)
+      {
+        best_weight = candidate_weight;
+        // best->assign(candidate->begin(), candidate->end() - 1);
+        best->clear();
+        for (int n = 0; n < candidate->size(); ++n)
+          best->push_back(candidate->at(n));
+      }
     }
   }
-
 
   return best;
 }
