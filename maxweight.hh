@@ -239,6 +239,7 @@ std::unique_ptr<CargoVector> exhaustive_max_weight (
   const CargoVector& goods,
   double total_volume) {
   
+  // std::unique_ptr<CargoVector> best (new CargoVector);
   std::unique_ptr<CargoVector> best (new CargoVector);
   double best_weight = 0;
 
@@ -258,8 +259,7 @@ std::unique_ptr<CargoVector> exhaustive_max_weight (
       if (((i >> j) & 1) == 1)
       {
         candidate->push_back(goods[j]);
-        candidate_volume += goods[j]->volume();
-        candidate_weight += goods[j]->weight();
+        sum_cargo_vector(*candidate, candidate_volume, candidate_weight);
       }
     }
 
@@ -269,12 +269,15 @@ std::unique_ptr<CargoVector> exhaustive_max_weight (
       {
         best_weight = candidate_weight;
         // best->assign(candidate->begin(), candidate->end() - 1);
+
         best->clear();
         for (int n = 0; n < candidate->size(); ++n)
           best->push_back(candidate->at(n));
+
       }
     }
   }
+
 
   return best;
 }
