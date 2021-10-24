@@ -271,7 +271,7 @@ std::unique_ptr<CargoVector> exhaustive_max_weight (
         // best->assign(candidate->begin(), candidate->end() - 1);
 
         best->clear();
-        for (int n = 0; n < candidate->size(); ++n)
+        for (unsigned int n = 0; n < candidate->size(); ++n)
           best->push_back(candidate->at(n));
 
       }
