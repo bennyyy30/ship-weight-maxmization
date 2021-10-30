@@ -183,8 +183,8 @@ std::unique_ptr<CargoVector> filter_cargo_vector (
     std::unique_ptr<CargoVector>filteredVec(new CargoVector);
 
     for (size_t i = 0; i < source.size(); i++) {
-      double cargoVec = filteredVec->size();
-      if (cargoVec < total_size && cargoVec >= 0) {
+      int cargoVec = filteredVec->size();
+      if (cargoVec < total_size) {
         if (source[i]->weight() >= min_weight && source[i]->weight() <= max_weight) {
           filteredVec->push_back(source[i]);
         }
@@ -240,7 +240,6 @@ std::unique_ptr<CargoVector> exhaustive_max_weight (
   const CargoVector& goods,
   double total_volume) {
   
-  // std::unique_ptr<CargoVector> best (new CargoVector);
   std::unique_ptr<CargoVector> best (new CargoVector);
   double best_weight = 0;
 
@@ -254,9 +253,9 @@ std::unique_ptr<CargoVector> exhaustive_max_weight (
     double candidate_volume = 0;
     double candidate_weight = 0;
 
+    // Enumerating candidates via binary operators to find subsets
     for (int j = 0; j < n; ++j)
     {
-      // Do some bitwise operations: https://www.youtube.com/watch?v=hlvAojWf-eU
       if (((i >> j) & 1) == 1)
       {
         candidate->push_back(goods[j]);
@@ -264,21 +263,16 @@ std::unique_ptr<CargoVector> exhaustive_max_weight (
       }
     }
 
-    if (candidate_volume <= total_volume)
+    if (candidate_volume <= total_volume) // Verifier
     {
-      if (best->empty() || candidate_weight > best_weight)
+      if (best->empty() || candidate_weight > best_weight)  // Updating best if possible
       {
         best_weight = candidate_weight;
-        // best->assign(candidate->begin(), candidate->end() - 1);
-
         best->clear();
-        for (unsigned int n = 0; n < candidate->size(); ++n)
-          best->push_back(candidate->at(n));
-
+        *best = *candidate;
       }
     }
   }
-
 
   return best;
 }
