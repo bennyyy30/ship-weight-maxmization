@@ -210,8 +210,9 @@ std::unique_ptr<CargoVector> greedy_max_weight (
     size_t token = 0;
 
     while (!before->empty()) {
-      double max_wpv = 0;
+      double max_wpv = 0; // Weight per volume ratio
 
+      // Finding the element with the best weight per volume ratio
       for (size_t i = 0; i < before->size(); i++) {
         if (before->at(i)->weight() / before->at(i)->volume() > max_wpv) {
           token = i;
